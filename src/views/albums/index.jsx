@@ -31,7 +31,6 @@ const AlbumList = () => {
   return (
     <div className={styles.albumsMainContainer}>
       <Header title="Albums" />
-
       <div className={styles.titlesContainer}>
         {albums.map((album) => (
           <Link
