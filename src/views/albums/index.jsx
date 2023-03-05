@@ -13,17 +13,16 @@ const AlbumList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [albumsData] = await new Promise((resolve, reject) => {
-        AlbumService.list()
-          .then((data) => resolve([data]))
-          .catch((error) => reject(error));
-      });
+      try {
+        const albumsData = await AlbumService.list();
+        const userAlbums = albumsData.filter(
+          (item) => item.userId === currentUser?.id
+        );
 
-      const userAlbums = albumsData.filter(
-        (item) => item.userId === currentUser?.id
-      );
-
-      setAlbums(userAlbums);
+        setAlbums(userAlbums);
+      } catch (err) {
+        console.error(err.message);
+      }
     };
     fetchData();
   }, [currentUser?.id]);
